@@ -1,9 +1,7 @@
 package com.taskboard.backend.service;
 
-import com.taskboard.backend.model.Task;
-import com.taskboard.backend.model.enums.Priority;
-import com.taskboard. backend.model.enums.Status;
-import com.taskboard.backend.repository.TaskRepository;
+import com.taskboard.backend.model.Project;
+import com.taskboard.backend.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,76 +10,45 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class TaskService {
+public class ProjectService {
 
-    private final TaskRepository taskRepository;
+    private final ProjectRepository projectRepository;
 
-    // CREATE
-    public Task createTask(Task task) {
-        return taskRepository.save(task);
+    public Project createProject(Project project) {
+        return projectRepository.save(project);
     }
 
-    // READ
-    public List<Task> getAllTasks() {
-        return taskRepository. findAll();
+    public List<Project> getAllProjects() {
+        return projectRepository.findAll();
     }
 
-    public Optional<Task> getTaskById(String id) {
-        return taskRepository.findById(id);
+    public Optional<Project> getProjectById(String id) {
+        return projectRepository.findById(id);
     }
 
-    public List<Task> getTasksByStatus(Status status) {
-        return taskRepository.findByStatus(status);
+    public List<Project> getProjectsByOwnerId(String ownerId) {
+        return projectRepository. findByOwnerId(ownerId);
     }
 
-    public List<Task> getTasksByPriority(Priority priority) {
-        return taskRepository.findByPriority(priority);
+    public List<Project> searchProjectsByName(String name) {
+        return projectRepository.findByNameContainingIgnoreCase(name);
     }
 
-    public List<Task> getTasksByProjectId(String projectId) {
-        return taskRepository.findByProjectId(projectId);
-    }
-
-    public List<Task> getTasksByLabel(String label) {
-        return taskRepository.findByLabelsContaining(label);
-    }
-
-    // UPDATE
-    public Task updateTask(String id, Task updatedTask) {
-        return taskRepository.findById(id)
-                .map(existingTask -> {
-                    existingTask.setTitle(updatedTask.getTitle());
-                    existingTask.setDescription(updatedTask. getDescription());
-                    existingTask. setStatus(updatedTask.getStatus());
-                    existingTask.setPriority(updatedTask. getPriority());
-                    existingTask.setDueDate(updatedTask.getDueDate());
-                    existingTask.setLabels(updatedTask.getLabels());
-                    existingTask.setSubTasks(updatedTask.getSubTasks());
-                    existingTask.setProjectId(updatedTask.getProjectId());
-                    existingTask.setAssigneeId(updatedTask.getAssigneeId());
-                    return taskRepository.save(existingTask);
+    public Project updateProject(String id, Project updatedProject) {
+        return projectRepository.findById(id)
+                .map(existingProject -> {
+                    existingProject. setName(updatedProject.getName());
+                    existingProject.setDescription(updatedProject.getDescription());
+                    existingProject.setColor(updatedProject. getColor());
+                    return projectRepository.save(existingProject);
                 })
-                . orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
+                . orElseThrow(() -> new RuntimeException("Project not found with id: " + id));
     }
 
-    public Task updateTaskStatus(String id, Status status) {
-        return taskRepository.findById(id)
-                .map(task -> {
-                    task.setStatus(status);
-                    return taskRepository.save(task);
-                })
-                .orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
-    }
-
-    // DELETE
-    public void deleteTask(String id) {
-        if (! taskRepository.existsById(id)) {
-            throw new RuntimeException("Task not found with id: " + id);
+    public void deleteProject(String id) {
+        if (!projectRepository.existsById(id)) {
+            throw new RuntimeException("Project not found with id: " + id);
         }
-        taskRepository. deleteById(id);
-    }
-
-    public void deleteAllTasks() {
-        taskRepository.deleteAll();
+        projectRepository.deleteById(id);
     }
 }
