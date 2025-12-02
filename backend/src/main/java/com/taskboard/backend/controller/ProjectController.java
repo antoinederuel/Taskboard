@@ -1,13 +1,13 @@
-package com.taskboard. backend.controller;
+package com.taskboard.backend.controller;
 
-import com.taskboard.backend.model. Project;
+import com.taskboard.backend.model.Project;
 import com.taskboard.backend.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org. springframework.http.ResponseEntity;
-import org.springframework.web. bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util. List;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/projects")

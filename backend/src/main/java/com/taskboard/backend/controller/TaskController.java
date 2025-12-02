@@ -1,13 +1,13 @@
-package com.taskboard. backend.controller;
+package com.taskboard.backend.controller;
 
-import com.taskboard.backend.model. Task;
+import com.taskboard.backend.model.Task;
 import com.taskboard.backend.model.enums.Priority;
-import com. taskboard.backend. model.enums.Status;
-import com. taskboard.backend. service.TaskService;
+import com. taskboard.backend.model.enums.Status;
+import com. taskboard.backend.service.TaskService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http. HttpStatus;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework. web.bind.annotation.*;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 

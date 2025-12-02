@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Taskboard",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

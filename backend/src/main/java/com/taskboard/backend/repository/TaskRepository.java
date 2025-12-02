@@ -3,8 +3,8 @@ package com.taskboard.backend.repository;
 import com.taskboard.backend.model.Task;
 import com.taskboard.backend.model.enums.Priority;
 import com.taskboard.backend.model.enums.Status;
-import org.springframework.data.mongodb.repository. MongoRepository;
-import org.springframework. stereotype.Repository;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

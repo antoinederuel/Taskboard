@@ -1,4 +1,4 @@
-package com.taskboard.backend.model. enums;
+package com.taskboard.backend.model.enums;
 
 public enum Status {
     TODO,

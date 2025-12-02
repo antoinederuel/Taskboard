@@ -1,11 +1,11 @@
-package com.taskboard. backend.service;
+package com.taskboard.backend.service;
 
-import com.taskboard.backend.model. Task;
+import com.taskboard.backend.model.Task;
 import com.taskboard.backend.model.enums.Priority;
 import com.taskboard. backend.model.enums.Status;
-import com.taskboard.backend.repository. TaskRepository;
+import com.taskboard.backend.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype. Service;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
