@@ -1,0 +1,87 @@
+package com.taskboard. backend.service;
+
+import com.taskboard.backend.model. Task;
+import com.taskboard.backend.model.enums.Priority;
+import com.taskboard. backend.model.enums.Status;
+import com.taskboard.backend.repository. TaskRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype. Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class TaskService {
+
+    private final TaskRepository taskRepository;
+
+    // CREATE
+    public Task createTask(Task task) {
+        return taskRepository.save(task);
+    }
+
+    // READ
+    public List<Task> getAllTasks() {
+        return taskRepository. findAll();
+    }
+
+    public Optional<Task> getTaskById(String id) {
+        return taskRepository.findById(id);
+    }
+
+    public List<Task> getTasksByStatus(Status status) {
+        return taskRepository.findByStatus(status);
+    }
+
+    public List<Task> getTasksByPriority(Priority priority) {
+        return taskRepository.findByPriority(priority);
+    }
+
+    public List<Task> getTasksByProjectId(String projectId) {
+        return taskRepository.findByProjectId(projectId);
+    }
+
+    public List<Task> getTasksByLabel(String label) {
+        return taskRepository.findByLabelsContaining(label);
+    }
+
+    // UPDATE
+    public Task updateTask(String id, Task updatedTask) {
+        return taskRepository.findById(id)
+                .map(existingTask -> {
+                    existingTask.setTitle(updatedTask.getTitle());
+                    existingTask.setDescription(updatedTask. getDescription());
+                    existingTask. setStatus(updatedTask.getStatus());
+                    existingTask.setPriority(updatedTask. getPriority());
+                    existingTask.setDueDate(updatedTask.getDueDate());
+                    existingTask.setLabels(updatedTask.getLabels());
+                    existingTask.setSubTasks(updatedTask.getSubTasks());
+                    existingTask.setProjectId(updatedTask.getProjectId());
+                    existingTask.setAssigneeId(updatedTask.getAssigneeId());
+                    return taskRepository.save(existingTask);
+                })
+                . orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
+    }
+
+    public Task updateTaskStatus(String id, Status status) {
+        return taskRepository.findById(id)
+                .map(task -> {
+                    task.setStatus(status);
+                    return taskRepository.save(task);
+                })
+                .orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
+    }
+
+    // DELETE
+    public void deleteTask(String id) {
+        if (! taskRepository.existsById(id)) {
+            throw new RuntimeException("Task not found with id: " + id);
+        }
+        taskRepository. deleteById(id);
+    }
+
+    public void deleteAllTasks() {
+        taskRepository.deleteAll();
+    }
+}
